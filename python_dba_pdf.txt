@@ -1,0 +1,24 @@
+#Insertion of file
+
+
+import cx_Oracle 
+try:
+    file=open ('video.mkv','rb') 
+    data=file.read()
+    file.close()
+    conn=cx_Oracle.connect("u1/u1@xe")
+    cursor=conn.cursor()
+    blobvar=cursor.var(cx_Oracle.BLOB)
+    blobvar.setvalue(0,data)
+    sql="insert into picture(image)values(:blobData)"
+    cursor.setinputsizes (blobData=cx_Oracle.BLOB)
+    cursor.execute (sql,{'blobData':blobvar})
+    print("File uploaded successfully")
+    conn.commit()
+except cx_Oracle.DatabaseError as e:
+        print("There is a problem with oracle: ",e)
+finally:
+    if cursor:
+        cursor.close()
+    if conn:
+        conn.close()  
