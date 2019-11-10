@@ -1,12 +1,12 @@
-#Insertion of file
+#Insertion of file/video/images
 
 
 import cx_Oracle 
 try:
-    file=open ('video.mkv','rb') 
+    file=open ('video.mkv','rb')  //video.mkv is the name of my file. You can take this as input from user as well
     data=file.read()
     file.close()
-    conn=cx_Oracle.connect("u1/u1@xe")
+    conn=cx_Oracle.connect("u1/u1@xe") //user details
     cursor=conn.cursor()
     blobvar=cursor.var(cx_Oracle.BLOB)
     blobvar.setvalue(0,data)
